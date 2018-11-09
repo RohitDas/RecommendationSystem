@@ -94,6 +94,7 @@ for uid, asins in uid_to_asins_from_test:
             recommended_products_total = set()
     if asins.intersection(recommended_products_total):
         conversion_rate += 1
+    idx += 1
 
 print("Average conversion rate: ", conversion_rate/len(uid_to_asins_from_test))
 

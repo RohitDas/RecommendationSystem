@@ -28,7 +28,7 @@ def similar_items_for_type(rdd, index, type):
     print("Calculating similar items for type: ", type)
     new_rdd = rdd.map(lambda row: [row[0]]+(row[index] if row[index] else []))
     new_rdd = new_rdd.map(lambda row: list(set(row)))
-    model = FPGrowth.train(new_rdd, minSupport=0.01, numPartitions=4)
+    model = FPGrowth.train(new_rdd, minSupport=0.001, numPartitions=4)
     freq_items_sets = model.freqItemsets().collect()
     item_to_sim = {}
     for freq_item_set in freq_items_sets:                                                 
@@ -37,7 +37,8 @@ def similar_items_for_type(rdd, index, type):
             item_to_sim.setdefault(item, set()).update(items.difference(set([item])))
     return item_to_sim
 
-print(similar_items_for_type(rdd_meta, 1, "also_viewed"))
+item_to_sim = similar_items_for_type(rdd_meta, 2, "also_viewed")
+print item_to_sim
 
 #print(rdd_meta.collect())
 
@@ -48,9 +49,43 @@ print(similar_items_for_type(rdd_meta, 1, "also_viewed"))
     I need to find top k recommendation for each user.
 """
 
+dfmain = sql_context.read.json ("reviews_Musical_Instruments.json")        
+dfmain.show()                                                                                   
+dfmain.createOrReplaceTempView("json_view")                                                     
+dfnew=sql_context.sql("select reviewerID,asin,overall from json_view")                          
+dfnew.show()                                                                                    
+rdd_allreviews = dfnew.select('reviewerID', 'asin', 'overall').rdd                               
+print rdd_allreviews.take(10)                                                                   
+training_RDD,test_RDD = rdd_allreviews.randomSplit([5, 5], seed=0L)
+
+training_RDD_user_to_asins = training_RDD.map(lambda row: (row['reviewerID'], [row['asin']])).reduceByKey(lambda x,y: x + y).collect()
+test_RDD_user_to_asins = test_RDD.map(lambda row: (row['reviewerID'], [row['asin']])).reduceByKey(lambda x,y: x + y).collect()
+
+recommendations = {}
+
+
+def get_reco_for_user(asins):
+    all_asins = set()
+    for asin in asins:
+        all_asins.update(item_to_sim.get(asin, []))
+    return all_asins
+
+
+for user, asins in training_RDD_user_to_asins:
+    recommendations.update({
+        user: get_reco_for_user(asins)
+    })
+
+
+conversion_rate = 0
+for user, asins in test_RDD_user_to_asins:
+    reco_products = recommendations.get(user, set())
+    if reco_products.intersection(set(asins)):
+        conversion_rate += 1
+        print "Reco successful"
+
+print("Average conversion rate: ", float(conversion_rate)/float(len(test_RDD_user_to_asins)*188))
+
 
 def average_also_width(rdd, ind, type):
     pass
-
-
-
