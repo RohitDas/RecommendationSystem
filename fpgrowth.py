@@ -5,7 +5,7 @@ conf = SparkConf()
 context = SparkContext(conf=conf)
 sql_context = SQLContext(context)
 
-
+/#The metadata section file
 meta_f_name = "meta_Musical_Instruments.json"
 
 #Load as a dataframe
@@ -22,7 +22,7 @@ rdd_meta = rdd_meta.map(lambda row: (row['asin'], row['related']))
 rdd_meta = rdd_meta.map(lambda row: (row[0], row[1]['also_bought'], row[1]['also_viewed'], row[1]['bought_together'], row[1]['buy_after_viewing']))
 
 
-
+#finding frequent itemsets
 
 def similar_items_for_type(rdd, index, type):
     print("Calculating similar items for type: ", type)
@@ -40,14 +40,7 @@ def similar_items_for_type(rdd, index, type):
 item_to_sim = similar_items_for_type(rdd_meta, 2, "also_viewed")
 print item_to_sim
 
-#print(rdd_meta.collect())
-
-#print("Count: ", count)
-
-
-"""
-    I need to find top k recommendation for each user.
-"""
+#taking the review section of the data for partitioning into training and test sets respectively.
 
 dfmain = sql_context.read.json ("reviews_Musical_Instruments.json")        
 dfmain.show()                                                                                   
@@ -58,8 +51,11 @@ rdd_allreviews = dfnew.select('reviewerID', 'asin', 'overall').rdd
 print rdd_allreviews.take(10)                                                                   
 training_RDD,test_RDD = rdd_allreviews.randomSplit([5, 5], seed=0L)
 
+#looking at the items a particular user has viewed
 training_RDD_user_to_asins = training_RDD.map(lambda row: (row['reviewerID'], [row['asin']])).reduceByKey(lambda x,y: x + y).collect()
 test_RDD_user_to_asins = test_RDD.map(lambda row: (row['reviewerID'], [row['asin']])).reduceByKey(lambda x,y: x + y).collect()
+
+#Generation of recommendations
 
 recommendations = {}
 
@@ -76,6 +72,7 @@ for user, asins in training_RDD_user_to_asins:
         user: get_reco_for_user(asins)
     })
 
+#Calculation of conversion rate
 
 conversion_rate = 0
 for user, asins in test_RDD_user_to_asins:
@@ -84,8 +81,6 @@ for user, asins in test_RDD_user_to_asins:
         conversion_rate += 1
         print "Reco successful"
 
-print("Average conversion rate: ", float(conversion_rate)/float(len(test_RDD_user_to_asins)*188))
+print("Average conversion rate: ", float(conversion_rate)/float(len(test_RDD_user_to_asins)*100))
 
 
-def average_also_width(rdd, ind, type):
-    pass
