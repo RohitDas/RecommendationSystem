@@ -1,0 +1,130 @@
+2018-11-09 20:44:24 WARN  Utils:66 - Your hostname, rohittulu-Inspiron-15-7000-Gaming resolves to a loopback address: 127.0.1.1; using 172.25.96.127 instead (on interface wlp3s0)
+2018-11-09 20:44:24 WARN  Utils:66 - Set SPARK_LOCAL_IP if you need to bind to another address
+2018-11-09 20:44:24 WARN  NativeCodeLoader:62 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2018-11-09 20:44:25 WARN  Utils:66 - Service 'SparkUI' could not bind on port 4040. Attempting port 4041.
+2018-11-09 20:44:29 WARN  Utils:66 - Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.debug.maxToStringFields' in SparkEnv.conf.
+2018-11-09 20:44:30 WARN  FPGrowth:66 - Input data is not cached.
+('Filtered count:', 69945)
+('Calculating similar items for type: ', 'also_viewed')
++----------+--------+-------+--------------------+-----------+--------------+--------------------+--------------------+--------------+
+|      asin| helpful|overall|          reviewText| reviewTime|    reviewerID|        reviewerName|             summary|unixReviewTime|
++----------+--------+-------+--------------------+-----------+--------------+--------------------+--------------------+--------------+
+|0006428320|  [0, 0]|    3.0|The portfolio is ...|03 11, 2014|A1YS9MDZP93857|         John Taylor|       Parts missing|    1394496000|
+|0014072149|  [0, 0]|    5.0|If you are a seri...| 06 6, 2013|A3TS466QBAWB9D|       Silver Pencil|Perform it with a...|    1370476800|
+|0041291905|  [0, 0]|    5.0|This is and excel...|10 14, 2013|A3BUDYITWUSIS7|joyce gabriel cor...|Vivalldi's Four S...|    1381708800|
+|0041913574|  [0, 0]|    5.0|Perfect for someo...|09 23, 2010|A19K10Z0D2NTZK|         TexasCowboy|Full score: voice...|    1285200000|
+|0201891859|  [0, 1]|    1.0|How many Nocturne...|10 17, 2012|A14X336IB4JD89|              dfjm53|Unable to determi...|    1350432000|
+|0577088726|  [0, 0]|    5.0|this was written ...|06 14, 2013|A2HR0IL3TC4CKL|scarecrow "scarec...|     arduous indeed!|    1371168000|
+|0634029231|  [0, 0]|    3.0|Greg Koch is a kn...|06 24, 2005|A2DHYD72O52WS5|Amazon Customer "...|GREAT! BUT NOT FO...|    1119571200|
+|0634029347| [2, 12]|    2.0|I bought this DVD...|10 15, 2005|A1MUVHT8BONL5K|Amazon Customer "...|NOT CLAPTION MUSI...|    1129334400|
+|0634029347|  [0, 1]|    1.0|I was looking for...|12 21, 2013|A15GZQZWKG6KZM|       Robert Wright|   I was disapointed|    1387584000|
+|0634029347|  [1, 8]|    5.0|If you are an una...| 10 2, 2005|A16WE7UU0QD33D|      S. R. Mcdonald|Solo Years Revisited|    1128211200|
+|0634029355|  [2, 2]|    2.0|I was carefull to...| 11 9, 2012| AXMWZYP2IROMP|                Alex|not great instruc...|    1352419200|
+|0634029355| [3, 17]|    2.0|I bought this DVD...|10 15, 2005|A1MUVHT8BONL5K|Amazon Customer "...|NOT CLAPTION MUSI...|    1129334400|
+|0634029355|  [2, 2]|    5.0|Unless you are so...|09 14, 2007| A6DCKXX4659CR|   Hotshot "Hotshot"|CLAPTON GUITAR IN...|    1189728000|
+|0634029355|  [3, 3]|    5.0|I've played guita...|03 26, 2008|A28YJZCV43ZWQW|  James V. Signorile|First rate lesson...|    1206489600|
+|0634029355|  [2, 3]|    2.0|This isn't worth ...|04 20, 2010|A2I4CV4PGZCNAF|         Josh Hayden|Don't waste your ...|    1271721600|
+|0634029363|  [1, 1]|    2.0|As much as I like...|04 14, 2013|A1M7OWNI93N1Y3|            geronimo|   not very didactic|    1365897600|
+|0634029363|[12, 31]|    1.0|THIS IS NOT A CLA...|05 31, 2005|A2FEDDUHQAEN97|J. Drinks "chesap...|    clapton acoustic|    1117497600|
+|0634029363|  [8, 8]|    5.0|For those who may...|06 17, 2007|A338HVUM4AWJY7|Joaquim Do M. Nt ...|This is an instru...|    1182038400|
+|0634029363|  [0, 4]|    5.0|No EC collection ...| 10 2, 2005|A16WE7UU0QD33D|      S. R. Mcdonald|         Acoustic EC|    1128211200|
+|0634029363|  [2, 2]|    1.0|Very disappointin...| 05 1, 2010| AKKQM6B0KI6F4|  Thomas J. Chuchola|    Clapton Classics|    1272672000|
++----------+--------+-------+--------------------+-----------+--------------+--------------------+--------------------+--------------+
+only showing top 20 rows
+
++--------------+----------+-------+
+|    reviewerID|      asin|overall|
++--------------+----------+-------+
+|A1YS9MDZP93857|0006428320|    3.0|
+|A3TS466QBAWB9D|0014072149|    5.0|
+|A3BUDYITWUSIS7|0041291905|    5.0|
+|A19K10Z0D2NTZK|0041913574|    5.0|
+|A14X336IB4JD89|0201891859|    1.0|
+|A2HR0IL3TC4CKL|0577088726|    5.0|
+|A2DHYD72O52WS5|0634029231|    3.0|
+|A1MUVHT8BONL5K|0634029347|    2.0|
+|A15GZQZWKG6KZM|0634029347|    1.0|
+|A16WE7UU0QD33D|0634029347|    5.0|
+| AXMWZYP2IROMP|0634029355|    2.0|
+|A1MUVHT8BONL5K|0634029355|    2.0|
+| A6DCKXX4659CR|0634029355|    5.0|
+|A28YJZCV43ZWQW|0634029355|    5.0|
+|A2I4CV4PGZCNAF|0634029355|    2.0|
+|A1M7OWNI93N1Y3|0634029363|    2.0|
+|A2FEDDUHQAEN97|0634029363|    1.0|
+|A338HVUM4AWJY7|0634029363|    5.0|
+|A16WE7UU0QD33D|0634029363|    5.0|
+| AKKQM6B0KI6F4|0634029363|    1.0|
++--------------+----------+-------+
+only showing top 20 rows
+
+[Row(reviewerID=u'A1YS9MDZP93857', asin=u'0006428320', overall=3.0), Row(reviewerID=u'A3TS466QBAWB9D', asin=u'0014072149', overall=5.0), Row(reviewerID=u'A3BUDYITWUSIS7', asin=u'0041291905', overall=5.0), Row(reviewerID=u'A19K10Z0D2NTZK', asin=u'0041913574', overall=5.0), Row(reviewerID=u'A14X336IB4JD89', asin=u'0201891859', overall=1.0), Row(reviewerID=u'A2HR0IL3TC4CKL', asin=u'0577088726', overall=5.0), Row(reviewerID=u'A2DHYD72O52WS5', asin=u'0634029231', overall=3.0), Row(reviewerID=u'A1MUVHT8BONL5K', asin=u'0634029347', overall=2.0), Row(reviewerID=u'A15GZQZWKG6KZM', asin=u'0634029347', overall=1.0), Row(reviewerID=u'A16WE7UU0QD33D', asin=u'0634029347', overall=5.0)]
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+Reco successful
+('Average conversion rate: ', 0.035406524172763014)
